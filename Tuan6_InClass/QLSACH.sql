@@ -79,7 +79,8 @@ WHERE TheLoai = N'Văn học' AND NhaXuatBan = N'Trẻ'
 SELECT NhaXuatBan FROM PHATHANH JOIN SACH ON SACH.MaSach = PHATHANH.MaSach
 GROUP BY NhaXuatBan
 HAVING COUNT(TheLoai) >= ALL (SELECT COUNT(TheLoai) FROM PHATHANH JOIN
-								SACH ON SACH.MaSach = PHATHANH.MaSach
+							SACH ON SACH.MaSach = PHATHANH.MaSach
+	 			)
 															   
 --3.3. Trong mỗi nhà xuất bản, tìm tác giả (MaTG,HoTen) 
 -- có số lần phát hành nhiều sách nhất. (1 đ)  
