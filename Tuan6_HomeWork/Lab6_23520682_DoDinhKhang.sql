@@ -75,9 +75,10 @@ FROM CongTy CT JOIN
 WHERE CAST(DuAnStats.SoDuAnHoanThanh AS FLOAT) / DuAnStats.TongDuAn > 0.9
 
 --13. Liệt kê top 3 kỹ năng được yêu cầu nhiều nhất trong các dự án.
-SELECT TOP 3 KN.MaKyNang, TenKyNang, COUNT(DISTINCT DA.MaDuAn) AS 'SoLanYeuCau' FROM KyNang KN JOIN ChuyenGia_KyNang CGKN ON CGKN.MaKyNang
-																= KN.MaKyNang JOIN ChuyenGia_DuAn CGDA ON CGDA.MaChuyenGia =
-																CGKN.MaChuyenGia JOIN DuAn DA ON DA.MaDuAn = CGDA.MaDuAn
+SELECT TOP 3 KN.MaKyNang, TenKyNang, COUNT(DISTINCT DA.MaDuAn) AS 'SoLanYeuCau' FROM KyNang KN JOIN ChuyenGia_KyNang CGKN 
+										ON CGKN.MaKyNang = KN.MaKyNang JOIN ChuyenGia_DuAn CGDA 
+										ON CGDA.MaChuyenGia = CGKN.MaChuyenGia JOIN DuAn DA ON 
+			 							DA.MaDuAn = CGDA.MaDuAn
 GROUP BY KN.MaKyNang, TenKyNang
 ORDER BY COUNT(DISTINCT DA.MaDuAn) DESC
 
