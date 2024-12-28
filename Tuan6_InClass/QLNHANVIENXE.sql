@@ -79,9 +79,10 @@ WHERE TenPhong = 'Nội thành' AND LoaiXe = 'Toyota' AND SoChoNgoi = 4
 -- 3.2. Tìm nhân viên(MANV,HoTen) là trưởng phòng được 
 -- phân công lái tất cả các loại xe. (1.5 đ)  
 SELECT MaNV, HoTen FROM NHANVIEN N JOIN PHONGBAN P ON P.TruongPhong = N.MaNV
-WHERE NOT EXISTS (SELECT * FROM XE
+WHERE NOT EXISTS (SELECT * FROM ( SELECT DISTINCT LoaiXe FROM XE 
+	 			) AS AllLoaiXe
 					WHERE NOT EXISTS (SELECT * FROM PHANCONG PC
-										WHERE PC.MaXe = XE.MaXe
+										WHERE PC.MaXe IN (SELECT MaXe FROM XE WHERE LoaiXe = AllLoaiXe.LoaiXE)
 										AND PC.MaNV = N.MaNV
 										))
 
